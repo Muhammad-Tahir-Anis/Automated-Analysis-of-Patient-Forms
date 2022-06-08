@@ -75,28 +75,40 @@ if __name__ == '__main__':
     right_bottom_screen.pack(side=TOP)
 
     bone_img = PhotoImage(file='assets/bone.png')
-    bone_img_lable = ttk.Label(left_screen, image=bone_img)
-    bone_img_lable.pack(anchor=CENTER)
+    bone_img_label = ttk.Label(left_screen, image=bone_img)
+    bone_img_label.pack(anchor=CENTER)
 
     Bahria_Uni_img = PhotoImage(file='assets/Bahria_Uni.png')
-    Bahria_Uni_img_lable = ttk.Label(right_top_screen, image=Bahria_Uni_img, anchor=N)
-    Bahria_Uni_img_lable.pack(side=LEFT, anchor=N)
+    Bahri_Uni_img_label = ttk.Label(right_top_screen, image=Bahria_Uni_img, anchor=N)
+    Bahri_Uni_img_label.pack(side=LEFT, anchor=N)
 
     chirologo_img = PhotoImage(file='assets/chirologo.png')
-    chirologo_img_lable = ttk.Label(right_top_screen, image=chirologo_img, anchor=N)
-    chirologo_img_lable.pack(side=RIGHT, anchor=N)
+    chirography_img_label = ttk.Label(right_top_screen, image=chirologo_img, anchor=N)
+    chirography_img_label.pack(side=RIGHT, anchor=N)
 
-    file_name_lable = ttk.Label(right_bottom_screen, text="File Name")
-    file_name_lable.pack(side=TOP, anchor=CENTER)
+    file_name_label = ttk.Label(right_bottom_screen, text="File Name")
+    file_name_label.pack(side=TOP, anchor=CENTER, pady=10)
 
     file_name_entry = ttk.Entry(right_bottom_screen, textvariable=file_name)
-    file_name_entry.pack(side=TOP, anchor=CENTER)
+    file_name_entry.pack(side=TOP, anchor=CENTER, pady=10)
 
-    select_button = ttk.Button(right_bottom_screen, text="select", command=lambda: select_file())
-    select_button.pack(side=TOP, anchor=W)
+    row_1 = ttk.Label(right_bottom_screen)
+    row_1.pack(side=TOP, pady=10)
 
-    convert_button = ttk.Button(right_bottom_screen, text="Convert", command=lambda: pdf_png(file_name.get()))
-    convert_button.pack(side=TOP, anchor=E)
+    row_2 = ttk.Label(right_bottom_screen)
+    row_2.pack(side=TOP, pady=10)
+
+    select_button = ttk.Button(row_1, text="select", command=lambda: select_file())
+    select_button.pack(side=LEFT, anchor=W, padx=10)
+
+    convert_button = ttk.Button(row_1, text="Convert", command=lambda: pdf_png(file_name.get()))
+    convert_button.pack(side=RIGHT, anchor=E, padx=10)
+
+    select_button = ttk.Button(row_2, text="CSV", command=lambda: select_file())
+    select_button.pack(side=LEFT, anchor=W, padx=10)
+
+    convert_button = ttk.Button(row_2, text="Results", command=lambda: pdf_png(file_name.get()))
+    convert_button.pack(side=RIGHT, anchor=E, padx=10)
 
     # png_button = ttk.Buuton(right_bottom_screen, text = "PNG")
     # png_button.pack(side = LEFT,anchor = )
