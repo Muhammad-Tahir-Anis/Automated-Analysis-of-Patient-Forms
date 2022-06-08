@@ -74,15 +74,15 @@ if __name__ == '__main__':
     right_bottom_screen = ttk.Label(right_screen)
     right_bottom_screen.pack(side=TOP)
 
-    bone_img = PhotoImage(file='F:/FYP/Paitient Form Analysis/bone.png')
+    bone_img = PhotoImage(file='assets/bone.png')
     bone_img_lable = ttk.Label(left_screen, image=bone_img)
     bone_img_lable.pack(anchor=CENTER)
 
-    Bahria_Uni_img = PhotoImage(file='F:/FYP/Paitient Form Analysis/Bahria_Uni.png')
+    Bahria_Uni_img = PhotoImage(file='assets/Bahria_Uni.png')
     Bahria_Uni_img_lable = ttk.Label(right_top_screen, image=Bahria_Uni_img, anchor=N)
     Bahria_Uni_img_lable.pack(side=LEFT, anchor=N)
 
-    chirologo_img = PhotoImage(file='F:/FYP/Paitient Form Analysis/chirologo.png')
+    chirologo_img = PhotoImage(file='assets/chirologo.png')
     chirologo_img_lable = ttk.Label(right_top_screen, image=chirologo_img, anchor=N)
     chirologo_img_lable.pack(side=RIGHT, anchor=N)
 
