@@ -32,9 +32,13 @@ def find_checkboxes(img_bin, line_min_width=15):
     img_bin_final = cv2.dilate(img_bin_final, final_kernel, iterations=1)
     retval, labels, stats, centroids = cv2.connectedComponentsWithStats(~img_bin_final, connectivity=8,
                                                                         ltype=cv2.CV_32S)
+
     for x, y, w, h, area in stats:
         cv2.rectangle(img_bin, (x, y), (x + w, y + h), (0, 255, 0), 2)
     checkboxes = []
+
+#    cv2.imshow("img",img_bin)
+#    cv2.waitKey(0)
     print(stats)
     for stat in stats:
         if 25 > stat[2] > 5 and 25 > stat[3] > 5:
@@ -102,7 +106,7 @@ def marked_checkboxes(pixels_array):
         row_status = []
         for pixel in pixels:
             if pixel > 60:
-                index = pixels.index(pixel)+1
+                index = pixels.index(pixel) + 1
                 counter += 1
         if counter < 1 or counter > 1:
             index = 0
@@ -114,37 +118,41 @@ def marked_checkboxes(pixels_array):
     return rows_status
 
 
-
 def run_analysis(image_path):
     image = select_image(image_path)
-    cv2.imshow('image', image)
-    cv2.waitKey(0)
-    image_height, image_width = image_size(image)
+    #cv2.imshow('image', image)
+    print("Plane Image")
+    #image_height, image_width = image_size(image)
     img_bin = convert_image_to_binary(image)
-    cv2.imshow('image', img_bin)
-    cv2.waitKey(0)
+    #cv2.imshow('image', img_bin)
+    #cv2.waitKey()
+    print("Binary Image")
     checkboxes = find_checkboxes(img_bin)
     print(checkboxes)
     arranged_checkboxes, sort_checkboxes = arrange_checkboxes(checkboxes)
     pixels = checkbox_status(img_bin, sort_checkboxes)
-    cv2.imshow('image', img_bin)
-    cv2.waitKey(0)
+#    cv2.imshow('image', img_bin)
+#    cv2.waitKey(0)
+    print("Third Image")
+
 
     rows_status = marked_checkboxes(pixels)
     answers = []
     for status in rows_status:
         answers.append(status[1])
     max_value = np.max(answers)
-    length_answers=len(answers)
-    for value in range(0,max_value+1):
-        print(f"Percentage of  {value}  is  {answers.count(value) / length_answers * 100}")
-        answers.append(f"Percentage of  {value}  is  {answers.count(value) / length_answers * 100}")
+    length_answers = len(answers)
+
+    #for value in range(0, max_value + 1):
+        #print(f"Percentage of  {value}  is  {answers.count(value) / length_answers * 100}")
+        #answers.append(f"Percentage of  {value}  is  {answers.count(value) / length_answers * 100}")
+
     df = pd.DataFrame(answers).T
-    df.to_csv("F:/Text Images/Data.csv", mode='a',index=False, header=False)
+    df.to_csv("Images/Data.csv", mode='a', index=False, header=False)
     for row_status in rows_status:
         print(row_status[1])
     img = cv2.resize(image, (750, 750))
-    cv2.imshow('image', img)
-    cv2.waitKey(0)
+    #cv2.imshow('image', img)
+    #cv2.waitKey(0)
 
 # run_analysis("C:/Users/hp/Downloads/TESTING DATA/testing/page-0.png")

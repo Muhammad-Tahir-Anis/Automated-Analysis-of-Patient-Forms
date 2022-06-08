@@ -10,6 +10,7 @@ import tkinter.filedialog as fc
 import fitz as ft
 import os
 from checkBoxDetection import run_analysis
+from final import label
 
 
 def select_file():
@@ -22,6 +23,9 @@ def select_file():
     get_text(filename)
     file_name.set(filename)
 
+    if os.path.exists("Images/Data.csv") and os.path.isfile("Images/Data.csv"):
+        os.remove("Images/Data.csv")
+
 
 def get_text(filename):
     return filename
@@ -30,12 +34,12 @@ def get_text(filename):
 def pdf_png(filename):
     print(filename)
     doc = ft.open(filename)  # array of png
-    if not os.path.exists("F:/Text Images"):
-        os.mkdir("F:/Text Images")
+    if not os.path.exists("Images"):
+        os.mkdir("Images")
     for page in doc:
         pix = page.get_pixmap()
-        pix.save(f"F:/Text Images/page-{page.number}.png")
-        run_analysis(f"F:/Text Images/page-{page.number}.png")
+        pix.save(f"Images/page-{page.number}.png")
+        run_analysis(f"Images/page-{page.number}.png")
         # row_counter=row_counter+2
         print('saved')
         # cv2.imread('image',doc)
@@ -57,7 +61,9 @@ if __name__ == '__main__':
     root.geometry("+{}+{}".format(positionRight, positionDown))
     # start_row=0
     root.title("Check Box Analysis")
+
     file_name = StringVar()
+    value = StringVar()
 
     frm = ttk.Frame(root, padding=10)
     frm.pack()
@@ -78,9 +84,9 @@ if __name__ == '__main__':
     bone_img_label = ttk.Label(left_screen, image=bone_img)
     bone_img_label.pack(anchor=CENTER)
 
-    Bahria_Uni_img = PhotoImage(file='assets/Bahria_Uni.png')
-    Bahri_Uni_img_label = ttk.Label(right_top_screen, image=Bahria_Uni_img, anchor=N)
-    Bahri_Uni_img_label.pack(side=LEFT, anchor=N)
+    bahria_Uni_img = PhotoImage(file='assets/Bahria_Uni.png')
+    bahria_Uni_img_label = ttk.Label(right_top_screen, image=bahria_Uni_img, anchor=N)
+    bahria_Uni_img_label.pack(side=LEFT, anchor=N)
 
     chirologo_img = PhotoImage(file='assets/chirologo.png')
     chirography_img_label = ttk.Label(right_top_screen, image=chirologo_img, anchor=N)
@@ -104,13 +110,13 @@ if __name__ == '__main__':
     convert_button = ttk.Button(row_1, text="Convert", command=lambda: pdf_png(file_name.get()))
     convert_button.pack(side=RIGHT, anchor=E, padx=10)
 
-    select_button = ttk.Button(row_2, text="CSV", command=lambda: select_file())
+    select_button = ttk.Button(row_2, text="Label", command=lambda: label(value.get()))
     select_button.pack(side=LEFT, anchor=W, padx=10)
 
-    convert_button = ttk.Button(row_2, text="Results", command=lambda: pdf_png(file_name.get()))
-    convert_button.pack(side=RIGHT, anchor=E, padx=10)
+    file_name_entry = ttk.Entry(row_2, textvariable=value)
+    file_name_entry.pack(side=RIGHT, anchor=E, padx=10)
 
-    # png_button = ttk.Buuton(right_bottom_screen, text = "PNG")
+    # png_button = ttk.Button(right_bottom_screen, text = "PNG")
     # png_button.pack(side = LEFT,anchor = )
     root.mainloop()
 

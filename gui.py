@@ -30,12 +30,12 @@ def get_text(filename):
 def pdf_png(filename):
     print(filename)
     doc = ft.open(filename)  # array of png
-    if not os.path.exists("F:/Text Images"):
-        os.mkdir("F:/Text Images")
+    if not os.path.exists("Images"):
+        os.mkdir("Images")
     for page in doc:
         pix = page.get_pixmap()
-        pix.save(f"F:/Text Images/page-{page.number}.png")
-        run_analysis(f"F:/Text Images/page-{page.number}.png")
+        pix.save(f"Images/page-{page.number}.png")
+        run_analysis(f"Images/page-{page.number}.png")
         # row_counter=row_counter+2
         print('saved')
         # cv2.imread('image',doc)
