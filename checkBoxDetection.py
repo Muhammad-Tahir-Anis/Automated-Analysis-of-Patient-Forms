@@ -118,7 +118,7 @@ def marked_checkboxes(pixels_array):
     return rows_status
 
 
-def run_analysis(image_path):
+def run_analysis(image_path, answers, rows_status):
     image = select_image(image_path)
     #cv2.imshow('image', image)
     print("Plane Image")
@@ -137,7 +137,7 @@ def run_analysis(image_path):
 
 
     rows_status = marked_checkboxes(pixels)
-    answers = []
+    # answers = []
     for status in rows_status:
         answers.append(status[1])
     max_value = np.max(answers)
@@ -147,10 +147,10 @@ def run_analysis(image_path):
         #print(f"Percentage of  {value}  is  {answers.count(value) / length_answers * 100}")
         #answers.append(f"Percentage of  {value}  is  {answers.count(value) / length_answers * 100}")
 
-    df = pd.DataFrame(answers).T
-    df.to_csv("Images/Data.csv", mode='a', index=False, header=False)
-    for row_status in rows_status:
-        print(row_status[1])
+    # df = pd.DataFrame(answers).T
+    # df.to_csv("Images/Data.csv", mode='a', index=False, header=False)
+    # for row_status in rows_status:
+    #    print(row_status[1])
     img = cv2.resize(image, (750, 750))
     #cv2.imshow('image', img)
     #cv2.waitKey(0)

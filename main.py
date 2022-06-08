@@ -9,6 +9,11 @@ from tkinter import *
 import tkinter.filedialog as fc
 import fitz as ft
 import os
+import csv
+
+import numpy as np
+import pandas as pd
+
 from checkBoxDetection import run_analysis
 from final import label
 
@@ -34,15 +39,29 @@ def get_text(filename):
 def pdf_png(filename):
     print(filename)
     doc = ft.open(filename)  # array of png
+    answers = []
+    answer = [""]
+    rows_status = []
+
+    with open(r'Images/Data.csv', 'a') as f:
+        writer = csv.writer(f)
+        writer.writerow([])
+
     if not os.path.exists("Images"):
         os.mkdir("Images")
     for page in doc:
         pix = page.get_pixmap()
         pix.save(f"Images/page-{page.number}.png")
-        run_analysis(f"Images/page-{page.number}.png")
+        run_analysis(f"Images/page-{page.number}.png", answers, rows_status)
         # row_counter=row_counter+2
         print('saved')
         # cv2.imread('image',doc)
+
+
+    df = pd.DataFrame(answers).T
+    df.to_csv("Images/Data.csv", mode='a', index=False, header=False, )
+    for row_status in rows_status:
+        print(row_status[1])
 
 
 if __name__ == '__main__':
